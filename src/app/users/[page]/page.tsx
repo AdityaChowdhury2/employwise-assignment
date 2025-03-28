@@ -1,3 +1,4 @@
+import Pagination from "@/components/Pagination";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -10,28 +11,21 @@ import UserRow from "@/components/UsersRow";
 import { User } from "@/interface/User";
 import { getPaginatedUsers } from "@/lib/api";
 
+type Params = Promise<{ page: string }>;
+
 // Pre render first 2 pages at build time
-export const generateStaticParams = async () => {
+export async function generateStaticParams(): Promise<Array<{ page: string }>> {
   return [{ page: "1" }, { page: "2" }];
-};
+}
 
 // Revalidate every hour for incremental static regeneration
 export const revalidate = 3600;
 
-// Type definition for the params
-interface PageProps {
-  params: {
-    page: string;
-  };
-}
-
-const UsersPage = async ({ params }: PageProps) => {
+const UsersPage = async (props: { params: Params }) => {
   // Properly await the params by using them directly in the async function
-  const { page } = await params;
+  const { page } = await props.params;
   const currentPage = parseInt(page);
   const { users, totalPages } = await getPaginatedUsers(currentPage);
-
-  console.log("users", users);
 
   return (
     <div className="container mx-auto py-8">
@@ -58,6 +52,13 @@ const UsersPage = async ({ params }: PageProps) => {
           </Table>
         </CardContent>
       </Card>
+      <div className="flex justify-center items-center space-x-2 mt-4">
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          basePath="/users"
+        />
+      </div>
     </div>
   );
 };

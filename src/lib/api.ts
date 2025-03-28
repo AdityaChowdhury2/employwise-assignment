@@ -38,7 +38,8 @@ export async function getPaginatedUsers(page: number = 1): Promise<{
       headers: {
         "Content-Type": "application/json",
       },
-      cache: "no-store", // Uncomment for SSR to prevent caching
+      cache: "force-cache", // cache on for static generation
+      // cache: "no-store", // Uncomment for SSR to prevent caching
     });
 
     if (!response.ok) {
@@ -46,7 +47,7 @@ export async function getPaginatedUsers(page: number = 1): Promise<{
     }
 
     const data: PaginatedResponse = await response.json();
-    console.log("data", data);
+    // console.log("data", data);
 
     return {
       users: data.data,

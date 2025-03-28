@@ -16,6 +16,8 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { useForm } from "react-hook-form";
 
+type UserUpdate = Partial<User>;
+
 const UserRow: FC<{ user: User }> = ({ user }) => {
   const {
     id,
@@ -27,7 +29,7 @@ const UserRow: FC<{ user: User }> = ({ user }) => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: UserUpdate) => {
     console.log(data);
   };
 
