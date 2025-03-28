@@ -41,8 +41,6 @@ const LoginForm = () => {
   const onSubmit = async (loginData: LoginFormData) => {
     setLoading(true);
     try {
-      console.log("In login submit", loginData);
-      //   console.log("object", process.env.NEXT_PUBLIC_API_BASE_URL);
       const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
       const response = await fetch(`${baseUrl}/api/login`, {
@@ -53,7 +51,6 @@ const LoginForm = () => {
         body: JSON.stringify(loginData),
       });
 
-      console.log("object", response);
       const data = await response.json();
       if (data.error) {
         toast.error(data.error);
@@ -62,12 +59,11 @@ const LoginForm = () => {
         // save token to local storage
         localStorage.setItem("token", data.token);
         // redirect to dashboard
-        // console.log(router?.isReady ? "ready" : "not ready");
+
         router.push("/users/1");
       }
-      console.log("", data);
     } catch (e) {
-      console.log("error", e);
+      console.error("error", e);
       toast.error("An error occurred. Please try again later");
     } finally {
       setLoading(false);

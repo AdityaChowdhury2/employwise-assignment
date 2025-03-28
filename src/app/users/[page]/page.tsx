@@ -7,8 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import UserRow from "@/components/UsersRow";
-import { User } from "@/interface/User";
+import UserRows from "@/components/UserRows";
 import { getPaginatedUsers } from "@/lib/api";
 
 type Params = Promise<{ page: string }>;
@@ -25,7 +24,11 @@ const UsersPage = async (props: { params: Params }) => {
   // Properly await the params by using them directly in the async function
   const { page } = await props.params;
   const currentPage = parseInt(page);
-  const { users, totalPages } = await getPaginatedUsers(currentPage);
+  const { users: UsersFromApi, totalPages } = await getPaginatedUsers(
+    currentPage
+  );
+
+  console.log(UsersFromApi, "UsersFromApi");
 
   return (
     <div className="container mx-auto py-8">
@@ -34,22 +37,26 @@ const UsersPage = async (props: { params: Params }) => {
           <CardTitle>User Management</CardTitle>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Avatar</TableHead>
-                <TableHead>First Name</TableHead>
-                <TableHead>Last Name</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {users.map((user: User) => (
-                <UserRow key={+user.id} user={user} />
-              ))}
-            </TableBody>
-          </Table>
+          {UsersFromApi.length > 0 ? (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Avatar</TableHead>
+                  <TableHead>First Name</TableHead>
+                  <TableHead>Last Name</TableHead>
+                  <TableHead>Email</TableHead>
+                  <TableHead>Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <UserRows users={UsersFromApi} />
+              </TableBody>
+            </Table>
+          ) : (
+            <div className="text-center py-4">
+              <p className="text-gray-500">No users found.</p>
+            </div>
+          )}
         </CardContent>
       </Card>
       <div className="flex justify-center items-center space-x-2 mt-4">
