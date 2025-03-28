@@ -59,3 +59,49 @@ export async function getPaginatedUsers(page: number = 1): Promise<{
     throw error; // Re-throw to handle in the calling component
   }
 }
+
+export async function updateUserById(user: Partial<User>, id: string) {
+  try {
+    const url = new URL(`${API_BASE_URL}/api/users/${id}`);
+
+    const response = await fetch(url.toString(), {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data: User = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Failed to update user:", error);
+    throw error;
+  }
+}
+
+export async function deleteUserById(id: string) {
+  try {
+    const url = new URL(`${API_BASE_URL}/api/users/${id}`);
+
+    const response = await fetch(url.toString(), {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response;
+  } catch (error) {
+    console.error("Failed to delete user:", error);
+    throw error;
+  }
+}
