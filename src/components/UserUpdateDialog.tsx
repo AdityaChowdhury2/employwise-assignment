@@ -54,7 +54,9 @@ const UserUpdateDialog = ({
     try {
       setLoading(true);
       const response = await updateUserById(data, user.id.toString());
-
+      if (!response) {
+        throw new Error("Failed to update user");
+      }
       toast.success("User updated successfully");
 
       const newUsers = usersFromStore.map((u) => {
@@ -117,35 +119,37 @@ const UserUpdateDialog = ({
             <Label htmlFor="email">Last Name</Label>
             <Input id="email" {...register("email", { required: true })} />
           </div>
-          <Button type="submit" disabled={loading}>
-            {loading ? (
-              <span className="flex items-center">
-                <svg
-                  className="animate-spin h-5 w-5 mr-3"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A8.001 8.001 0 014.708 4.708L7.291 7.29zm10.585 0a8.001 8.001 0 01-2.583-2.583l2.583 2.583zm-2.583-10.585a8.001 8.001 0 012.583 2.583L14.708 4.708z"
-                  ></path>
-                </svg>
-                Saving Changes
-              </span>
-            ) : (
-              "Save Changes"
-            )}
-          </Button>
+          <div className="flex justify-center">
+            <Button type="submit" disabled={loading}>
+              {loading ? (
+                <span className="flex items-center">
+                  <svg
+                    className="animate-spin h-5 w-5 mr-3"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A8.001 8.001 0 014.708 4.708L7.291 7.29zm10.585 0a8.001 8.001 0 01-2.583-2.583l2.583 2.583zm-2.583-10.585a8.001 8.001 0 012.583 2.583L14.708 4.708z"
+                    ></path>
+                  </svg>
+                  Saving Changes
+                </span>
+              ) : (
+                "Save Changes"
+              )}
+            </Button>
+          </div>
         </form>
       </DialogContent>
     </Dialog>

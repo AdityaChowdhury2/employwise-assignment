@@ -52,7 +52,6 @@ export async function getPaginatedUsers(
     }
 
     const data: PaginatedResponse = await response.json();
-    // console.log("data", data);
 
     return {
       users: data.data,

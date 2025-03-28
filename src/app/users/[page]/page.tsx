@@ -28,8 +28,6 @@ const UsersPage = async (props: { params: Params }) => {
     currentPage
   );
 
-  console.log(UsersFromApi, "UsersFromApi");
-
   return (
     <div className="container mx-auto py-8">
       <Card>

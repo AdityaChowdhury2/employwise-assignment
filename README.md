@@ -9,6 +9,7 @@ A user management application built with **Next.js**, **TypeScript**, and **Tail
 - **Responsive Design**: Built with Tailwind CSS for a mobile-friendly UI.
 - **API Integration**: Fetch and manipulate user data from a REST API.
 - **Dark Mode Support**: Dynamic theming based on user preferences.
+- **Redux Toolkit** for state management.
 
 ## Project Structure
 

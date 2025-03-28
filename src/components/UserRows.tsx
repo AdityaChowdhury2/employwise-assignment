@@ -28,7 +28,7 @@ const UserRows: FC<{ users: User[] }> = ({ users }) => {
   useEffect(() => {
     // Dispatch the users to the Redux store
     dispatch(setUsers(users));
-  }, []);
+  }, [dispatch]);
 
   const router = useRouter();
 
