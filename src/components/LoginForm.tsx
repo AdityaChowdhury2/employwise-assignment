@@ -27,14 +27,17 @@ const LoginSchema = z.object({
   }),
 });
 
+// Define the type for the LoginSchema
+type LoginFormData = z.infer<typeof LoginSchema>;
+
 const LoginForm = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm({ resolver: zodResolver(LoginSchema) });
-  const onSubmit = (data) => {
+    // formState: { errors },
+  } = useForm<LoginFormData>({ resolver: zodResolver(LoginSchema) });
+  const onSubmit = (data: LoginFormData) => {
     setLoading((prev) => !prev);
     try {
       console.log(data);
