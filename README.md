@@ -12,6 +12,7 @@ A user management application built with **Next.js**, **TypeScript**, and **Tail
 
 ## Project Structure
 
+```
 .
 ├── .env # Environment variables
 ├── next.config.ts # Next.js configuration
@@ -26,6 +27,8 @@ A user management application built with **Next.js**, **TypeScript**, and **Tail
 │ ├── interface/ # TypeScript interfaces
 │ └── lib/ # API utilities
 └── public/ # Static assets
+
+```
 
 ## Installation
 
