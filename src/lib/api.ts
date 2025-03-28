@@ -24,7 +24,12 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
  * @param perPage Number of items per page
  * @returns Promise with paginated user data
  */
-export async function getPaginatedUsers(page: number = 1): Promise<{
+export async function getPaginatedUsers(
+  page: number = 1
+  // options?: {
+  //   cache: RequestCache;
+  // }
+): Promise<{
   users: User[];
   totalPages: number;
   currentPage: number;
@@ -38,7 +43,7 @@ export async function getPaginatedUsers(page: number = 1): Promise<{
       headers: {
         "Content-Type": "application/json",
       },
-      cache: "force-cache", // cache on for static generation
+      // cache: "force-cache", // cache on for static generation
       // cache: "no-store", // Uncomment for SSR to prevent caching
     });
 

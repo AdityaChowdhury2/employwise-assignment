@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import { TableCell, TableRow } from "./ui/table";
 import Image from "next/image";
 import { User } from "@/interface/User";
